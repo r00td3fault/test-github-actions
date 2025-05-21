@@ -1,0 +1,11 @@
+name: Prueba workflow
+
+on: [push]
+
+jobs:
+  hola:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Paso1
+      run: echo "Hola mundo"
