@@ -1,0 +1,19 @@
+name:  nombre
+
+description: descripcion
+
+#definir parametros
+inputs:
+  message:
+    description: description
+    required: true
+    default: "Hola mundo desde parametro"
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: custom-action-my-action
+      run: echo prueba action personaizada "Hola ${{ inputs.message }}"
+      shell: bash 
+

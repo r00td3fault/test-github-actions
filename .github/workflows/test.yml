@@ -3,11 +3,11 @@ name: Prueba workflow
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
   pull_request:
-    branches: [ "main" ]
-  
+    branches: ["main"]
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -37,9 +37,50 @@ jobs:
   otherJob:
     runs-on: ubuntu-latest
 
+    #matrix strategy poder ejecutar el job con diferentes configuraciones
+    strategy:
+      matrix:
+        php-version: [7.5, 8.0, 8.1]
+
+    env:
+      MY_VAR: 3000
+
+    #services
+    services:
+      mysql:
+        image: mysql:latets
+        env:
+          MYSQL_ROOT_PASSWORD: example
+        ports:
+          - 3306:3306
+    #depends on other job
+    needs: build
+
     steps:
       - name: Create file
+        env:
+          MY_VAR2: 3000
         run: echo Prueba de texto > text.txt
 
       - name: Access file
         run: cat text.txt
+
+      - uses: actions/checkout@v4
+
+      - name: action personalizada
+        uses: ./.github/actions/my-action
+        with:
+          message: "parametro pasado"
+
+      - name: run test
+        id: test
+        run: run test
+
+      - name: deploy
+        if: steps.test.outcome == 'success'
+        run: run test
+
+      - name: SET UP PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
