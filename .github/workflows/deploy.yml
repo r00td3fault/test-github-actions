@@ -7,10 +7,12 @@ on:
 jobs:
   first_job:
     runs-on: ubuntu-latest
-
+    env:
+      NAME: VariablePruba
+      PORT: 3000
     steps:
       - name: Hola mundo
-        run: echo "Hola mundo"
+        run: echo "Hola mundo desde $PORT"
 
   second_job:
     if: ${{ github.ref == 'refs/heads/main' }}
