@@ -6,6 +6,7 @@ on:
 
 jobs:
   first_job:
+    name: Jobs name
     runs-on: ubuntu-latest
     env:
       NAME: VariablePruba
@@ -13,6 +14,15 @@ jobs:
     steps:
       - name: Hola mundo
         run: echo "Hola mundo desde $PORT"
+
+      - name: list working dir runner
+        run: ls -al
+
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+
+      - name: list working dir repo
+        run: ls -al
 
   second_job:
     if: ${{ github.ref == 'refs/heads/main' }}
