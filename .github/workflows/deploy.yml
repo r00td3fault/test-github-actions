@@ -13,9 +13,10 @@ jobs:
         run: echo "Hola mundo"
 
   second_job:
+    if: ${{ github.ref == 'refs/heads/main' }}
     needs: first_job
     runs-on: ubuntu-latest
 
     steps:
       - name: Hola mundo
-        run: echo "Hola mundo"
+        run: echo "Hola mundo desde el segundo"
