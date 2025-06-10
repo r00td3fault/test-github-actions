@@ -11,6 +11,10 @@ jobs:
     env:
       NAME: VariablePruba
       PORT: 3000
+    outputs:
+      salida: salida del job
+      job_port: "3000"
+      stepId: ${{ steps.step_github_output.outputs.currentId }}
     steps:
       - name: Hola mundo
         run: echo "Hola mundo desde $PORT"
@@ -39,3 +43,6 @@ jobs:
     steps:
       - name: Hola mundo
         run: echo "Hola mundo desde el segundo"
+
+      - name: Obtener data de otro job
+        run: echo "Esto viene del job anterior ${{ jobs.first_job.outputs.stepId }} "
