@@ -24,6 +24,13 @@ jobs:
       - name: list working dir repo
         run: ls -al
 
+      - name: Github output
+        id: step_github_output
+        run: echo "currentId=243j342sdt" >> $GITHUB_OUTPUT
+
+      - name: Obtener output
+        run: echo " salida del step anterior es - ${{ steps.step_github_output.outputs.currentId }}"
+
   second_job:
     if: ${{ github.ref == 'refs/heads/main' }}
     needs: first_job
