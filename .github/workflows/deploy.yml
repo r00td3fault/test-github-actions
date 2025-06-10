@@ -35,6 +35,16 @@ jobs:
       - name: Obtener output
         run: echo " salida del step anterior es - ${{ steps.step_github_output.outputs.currentId }}"
 
+      - name: Generar archivo
+        run: |
+          echo "Arvhico prueba, hola" >> test.log
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: logs_aplicacion
+          path: test.log
+
   second_job:
     if: ${{ github.ref == 'refs/heads/main' }}
     needs: first_job
