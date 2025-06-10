@@ -56,3 +56,11 @@ jobs:
 
       - name: Obtener data de otro job
         run: echo "Esto viene del job anterior ${{ needs.first_job.outputs.stepId }} "
+
+      - name: Obtener artefacto de otro job
+        uses: actions/download-artifact@v4
+        with:
+          name: logs_aplicacion
+
+      - name: Display structure of downloaded files
+        run: ls -R
